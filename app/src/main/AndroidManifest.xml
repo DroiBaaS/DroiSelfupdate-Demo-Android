@@ -10,10 +10,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.droi.sdk.application_id"
-            android:value="h33umbzhmyoegdCOe5zbykgxQ3XrBm5JlQARsd4H" />
-        <meta-data
-            android:name="com.droi.sdk.platform_key"
-            android:value="pZgqoe2JVQmq5DM5uMv1m1E30UAJgHj0m1E30UAJ" />
+            android:value="vc8umbzh30JpfQq8iraucId2L9WNOVqRlQA9KSgR" />
         <meta-data
             android:name="com.droi.sdk.channel_name"
             android:value="DROI_CHANNEL1" />

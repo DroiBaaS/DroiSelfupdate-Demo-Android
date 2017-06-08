@@ -29,7 +29,6 @@ import java.io.File;
 
 public class MainActivity extends Activity {
 
-    static Context mContext;
     TextView channel;
     private Toast toast = null;
     DroiInappUpdateResponse inAppResponse;
@@ -37,7 +36,6 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = this;
         setContentView(R.layout.droi_example_activity_main);
         setClick();
         TextView appId = (TextView) findViewById(R.id.app_id);
@@ -64,10 +62,11 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 //setTestChannel方法只是demo中使用，请勿在生产环境中使用此方法，生产环境中需要在后台配置
-                DroiUpdate.setTestChannel(mContext, "");
-                channel.setText(Core.getChannelName(mContext));
+                DroiUpdate.setTestChannel(MainActivity.this, "");
+                channel.setText(Core.getChannelName(MainActivity.this));
                 DroiUpdate.setDefault();
-                DroiUpdate.update(mContext);
+                DroiUpdate.update(MainActivity.this);
+
             }
         });
         Button customUpdate = (Button) findViewById(R.id.custom_ui_update);
@@ -84,14 +83,14 @@ public class MainActivity extends Activity {
                             DroiUpdateResponse updateInfo) {
                         switch (updateStatus) {
                             case UpdateStatus.NO:
-                                Toast.makeText(mContext, R.string.update_status_no, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, R.string.update_status_no, Toast.LENGTH_SHORT).show();
                                 break;
                             case UpdateStatus.YES:
-                                Toast.makeText(mContext, R.string.update_status_yes, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, R.string.update_status_yes, Toast.LENGTH_SHORT).show();
                                 //你可以在此回调处实现自己的更新UI
                                 //在用户点击更新时调用下面的函数
                                 showToastInUiThread("versionCode:" + updateInfo.getVersionCode());
-                                DroiUpdate.downloadApp(mContext, updateInfo, new DroiDownloadListener() {
+                                DroiUpdate.downloadApp(MainActivity.this, updateInfo, new DroiDownloadListener() {
                                     @Override
                                     public void onStart(long l) {
 
@@ -119,25 +118,22 @@ public class MainActivity extends Activity {
                                 });
                                 break;
                             case UpdateStatus.ERROR:
-                                Toast.makeText(mContext, R.string.update_status_error, Toast.LENGTH_SHORT).show();
-                                break;
-                            case UpdateStatus.TIMEOUT:
-                                Toast.makeText(mContext, R.string.update_status_timeout, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, R.string.update_status_error, Toast.LENGTH_SHORT).show();
                                 break;
                             case UpdateStatus.NON_WIFI:
-                                Toast.makeText(mContext, R.string.update_status_nonwifi, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, R.string.update_status_nonwifi, Toast.LENGTH_SHORT).show();
                                 break;
                             case UpdateStatus.UPDATING:
-                                Toast.makeText(mContext, R.string.update_status_updating, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, R.string.update_status_updating, Toast.LENGTH_SHORT).show();
                                 break;
                         }
                     }
                 });
                 //setTestChannel方法只是demo中使用，请勿在生产环境中使用此方法，生产环境中需要在后台配置
-                DroiUpdate.setTestChannel(mContext, "");
-                channel.setText(Core.getChannelName(mContext));
+                DroiUpdate.setTestChannel(MainActivity.this, "");
+                channel.setText(Core.getChannelName(MainActivity.this));
                 DroiUpdate.setUpdateAutoPopup(false);
-                DroiUpdate.update(mContext);
+                DroiUpdate.update(MainActivity.this);
             }
         });
 
@@ -146,10 +142,10 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 //setTestChannel方法只是demo中使用，请勿在生产环境中使用此方法，生产环境中需要在后台配置
-                DroiUpdate.setTestChannel(mContext, "DROI_CHANNEL2");
+                DroiUpdate.setTestChannel(MainActivity.this, "DROI_CHANNEL2");
                 channel.setText("DROI_CHANNEL2");
                 DroiUpdate.setDefault();
-                DroiUpdate.update(mContext);
+                DroiUpdate.update(MainActivity.this);
             }
         });
 
@@ -158,10 +154,10 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 //setTestChannel方法只是demo中使用，请勿在生产环境中使用此方法，生产环境中需要在后台配置
-                DroiUpdate.setTestChannel(mContext, "DROI_CHANNEL3");
+                DroiUpdate.setTestChannel(MainActivity.this, "DROI_CHANNEL3");
                 channel.setText("DROI_CHANNEL3");
                 DroiUpdate.setDefault();
-                DroiUpdate.update(mContext);
+                DroiUpdate.update(MainActivity.this);
             }
         });
 
@@ -170,10 +166,10 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 //setTestChannel方法只是demo中使用，请勿在生产环境中使用此方法，生产环境中需要在后台配置
-                DroiUpdate.setTestChannel(mContext, "");
-                channel.setText(Core.getChannelName(mContext));
+                DroiUpdate.setTestChannel(MainActivity.this, "");
+                channel.setText(Core.getChannelName(MainActivity.this));
                 DroiUpdate.setDefault();
-                DroiUpdate.manualUpdate(mContext);
+                DroiUpdate.manualUpdate(MainActivity.this);
             }
         });
 
@@ -182,10 +178,10 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 //setTestChannel方法只是demo中使用，请勿在生产环境中使用此方法，生产环境中需要在后台配置
-                DroiUpdate.setTestChannel(mContext, "");
-                channel.setText(Core.getChannelName(mContext));
+                DroiUpdate.setTestChannel(MainActivity.this, "");
+                channel.setText(Core.getChannelName(MainActivity.this));
                 deleteFile();
-                DroiUpdate.setUpdateIgnore(mContext, null);
+                DroiUpdate.setUpdateIgnore(MainActivity.this, null);
             }
         });
 
@@ -194,10 +190,10 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 //setTestChannel方法只是demo中使用，请勿在生产环境中使用此方法，生产环境中需要在后台配置
-                DroiUpdate.setTestChannel(mContext, "DROI_CHANNEL4");
+                DroiUpdate.setTestChannel(MainActivity.this, "DROI_CHANNEL4");
                 channel.setText("DROI_CHANNEL4");
                 DroiUpdate.setDefault();
-                DroiUpdate.update(mContext);
+                DroiUpdate.update(MainActivity.this);
             }
         });
 
@@ -206,12 +202,12 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 //setTestChannel方法只是demo中使用，请勿在生产环境中使用此方法，生产环境中需要在后台配置
-                DroiUpdate.setTestChannel(mContext, "DROI_CHANNEL4");
+                DroiUpdate.setTestChannel(MainActivity.this, "DROI_CHANNEL4");
                 channel.setText("DROI_CHANNEL4");
                 int fileVersion = 1;
                 String fileName = "my.cnf";
 
-                DroiUpdate.inappUpdate(mContext, fileName, fileVersion,
+                DroiUpdate.inappUpdate(MainActivity.this, fileName, fileVersion,
                         new DroiInappUpdateListener() {
                             @Override
                             public void onUpdateReturned(int status, DroiInappUpdateResponse response) {
@@ -225,9 +221,6 @@ public class MainActivity extends Activity {
                                         break;
                                     case UpdateStatus.ERROR:
                                         showToastInUiThread(getString(R.string.update_status_error));
-                                        break;
-                                    case UpdateStatus.TIMEOUT:
-                                        showToastInUiThread(getString(R.string.update_status_timeout));
                                         break;
                                 }
                             }
@@ -244,14 +237,14 @@ public class MainActivity extends Activity {
                 File file = new File(filePath);
                 if (file != null && file.exists()) {
                     if (file.delete()) {
-                        Toast.makeText(mContext, R.string.delete_complete,
+                        Toast.makeText(MainActivity.this, R.string.delete_complete,
                                 Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(mContext, R.string.delete_failed,
+                        Toast.makeText(MainActivity.this, R.string.delete_failed,
                                 Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(mContext, R.string.delete_complete, Toast.LENGTH_SHORT)
+                    Toast.makeText(MainActivity.this, R.string.delete_complete, Toast.LENGTH_SHORT)
                             .show();
                 }
             }
@@ -294,7 +287,7 @@ public class MainActivity extends Activity {
         });
     }
 
-    public static void deleteFile() {
+    public void deleteFile() {
         DroiUpdate.setUpdateListener(new DroiUpdateListener() {
 
             @Override
@@ -303,22 +296,22 @@ public class MainActivity extends Activity {
                 DroiUpdate.setDefault();
                 if (statusCode == UpdateStatus.YES) {
                     if (updateResponse != null) {
-                        File file = DroiUpdate.getDownloadedFile(mContext,
+                        File file = DroiUpdate.getDownloadedFile(getApplicationContext(),
                                 updateResponse);
                         if (file != null) {
                             if (file.delete()) {
-                                Toast.makeText(mContext, R.string.delete_complete,
+                                Toast.makeText(getApplicationContext(), R.string.delete_complete,
                                         Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(mContext, R.string.delete_failed,
+                                Toast.makeText(getApplicationContext(), R.string.delete_failed,
                                         Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(mContext, R.string.delete_complete, Toast.LENGTH_SHORT)
+                            Toast.makeText(getApplicationContext(), R.string.delete_complete, Toast.LENGTH_SHORT)
                                     .show();
                         }
                     } else {
-                        Toast.makeText(mContext, R.string.delete_failed, Toast.LENGTH_SHORT)
+                        Toast.makeText(getApplicationContext(), R.string.delete_failed, Toast.LENGTH_SHORT)
                                 .show();
                     }
                 }
@@ -326,7 +319,7 @@ public class MainActivity extends Activity {
         });
         DroiUpdate.setUpdateAutoPopup(false);
         DroiUpdate.setUpdateOnlyWifi(false);
-        DroiUpdate.update(mContext);
+        DroiUpdate.update(this);
     }
 
     @Override
@@ -346,7 +339,7 @@ public class MainActivity extends Activity {
             @Override
             public void run() {
                 if (toast == null) {
-                    toast = Toast.makeText(mContext.getApplicationContext(),
+                    toast = Toast.makeText(MainActivity.this.getApplicationContext(),
                             stringRes, Toast.LENGTH_SHORT);
                 } else {
                     toast.setText(stringRes);
